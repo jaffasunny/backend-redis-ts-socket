@@ -1,8 +1,8 @@
 import mongoose, { Schema } from 'mongoose';
 import bcrypt from 'bcrypt';
-import { ApiError } from '../utils/ApiError.ts';
+import { ApiError } from '../utils/ApiError';
 import jwt from 'jsonwebtoken';
-import { IUser } from '../types/userTypes/index.ts';
+import { IUser } from '../types/userTypes/';
 
 const userSchema = new Schema<IUser>(
   {

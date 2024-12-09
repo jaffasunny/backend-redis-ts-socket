@@ -1,13 +1,13 @@
-import { ApiError } from '../utils/ApiError.ts';
-import { ApiResponse } from '../utils/ApiResponse.ts';
-import { asyncHandler } from '../utils/asyncHandler.ts';
-import { Post } from '../models/post.model.ts';
+import { ApiError } from '../utils/ApiError';
+import { ApiResponse } from '../utils/ApiResponse';
+import { asyncHandler } from '../utils/asyncHandler';
+import { Post } from '../models/post.model';
 import { Request, Response } from 'express';
-import { IComment } from '../types/commentTypes/index.ts';
-import getDataUri, { File } from '../utils/dataUri.ts';
+import { IComment } from '../types/commentTypes/index';
+import getDataUri from '../utils/dataUri';
 import cloudinary from 'cloudinary';
 import DataURIParser from 'datauri/parser';
-import { Notification } from '../models/notification.model.ts';
+import { Notification } from '../models/notification.model';
 import { ObjectId } from 'mongoose';
 
 const getAllPosts = asyncHandler(async (req: Request, res: Response) => {

@@ -7,9 +7,9 @@ import {
   getSinglePost,
   likePost,
   commentPost,
-} from '../controllers/post.controller.ts';
-import { authMiddleware, roleCheck } from '../middlewares/auth.middleware.ts';
-import singleUpload from '../middlewares/multer.ts';
+} from '../controllers/post.controller';
+import { authMiddleware, roleCheck } from '../middlewares/auth.middleware';
+import singleUpload from '../middlewares/multer';
 
 const router = Router();
 

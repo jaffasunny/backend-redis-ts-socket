@@ -1,8 +1,8 @@
-import { ApiError } from '../utils/ApiError.ts';
-import { ApiResponse } from '../utils/ApiResponse.ts';
-import { asyncHandler } from '../utils/asyncHandler.ts';
+import { ApiError } from '../utils/ApiError';
+import { ApiResponse } from '../utils/ApiResponse';
+import { asyncHandler } from '../utils/asyncHandler';
 import { Request, Response } from 'express';
-import { Notification } from '../models/notification.model.ts';
+import { Notification } from '../models/notification.model';
 
 const getNotifications = asyncHandler(async (req: Request, res: Response) => {
   const { _id: userId } = req.user;

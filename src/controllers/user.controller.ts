@@ -1,13 +1,13 @@
-import { ApiError } from '../utils/ApiError.ts';
-import { ApiResponse } from '../utils/ApiResponse.ts';
-import { asyncHandler } from '../utils/asyncHandler.ts';
-import { User } from '../models/user.model.ts';
-import { ResetPasswordToken } from '../models/resetPasswordToken.model.ts';
-import sendEmail from '../utils/sendMail.ts';
+import { ApiError } from '../utils/ApiError';
+import { ApiResponse } from '../utils/ApiResponse';
+import { asyncHandler } from '../utils/asyncHandler';
+import { User } from '../models/user.model';
+import { ResetPasswordToken } from '../models/resetPasswordToken.model';
+import sendEmail from '../utils/sendMail';
 import crypto from 'crypto';
 import { Request, Response } from 'express';
-import { getUser, redis } from '../config/index.ts';
-import { REDIS_KEYS } from '../constants.ts';
+import { getUser, redis } from '../config/index';
+import { REDIS_KEYS } from '../constants';
 
 // Generate New Refresh Token and Access Token
 const generateAccessAndRefreshTokens = async (userId: string) => {

@@ -2,8 +2,8 @@ import { Router } from 'express';
 import {
   getNotifications,
   viewNotifications,
-} from '../controllers/notification.controller.ts';
-import { authMiddleware, roleCheck } from '../middlewares/auth.middleware.ts';
+} from '../controllers/notification.controller';
+import { authMiddleware, roleCheck } from '../middlewares/auth.middleware';
 
 const router = Router();
 

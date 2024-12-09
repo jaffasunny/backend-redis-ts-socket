@@ -1,5 +1,5 @@
 import mongoose, { Schema } from 'mongoose';
-import { IResetPasswordToken } from '../types/index.ts';
+import { IResetPasswordToken } from '../types';
 
 const resetPasswordTokenSchema = new Schema<IResetPasswordToken>(
   {

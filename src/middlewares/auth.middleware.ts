@@ -1,10 +1,10 @@
 import jwt from 'jsonwebtoken';
-import { User } from '../models/user.model.ts';
-import { asyncHandler } from '../utils/asyncHandler.ts';
-import { ApiError } from '../utils/ApiError.ts';
-import { ApiResponse } from '../utils/ApiResponse.ts';
+import { User } from '../models/user.model';
+import { asyncHandler } from '../utils/asyncHandler';
+import { ApiError } from '../utils/ApiError';
+import { ApiResponse } from '../utils/ApiResponse';
 import { Request, Response, NextFunction } from 'express';
-import { JwtPayload } from '../types/index.ts';
+import { JwtPayload } from '../types/index';
 
 // in production code
 // if we are not using any keys like for example
