@@ -12,3 +12,15 @@ export interface IResetPasswordToken extends Document {
 }
 
 export type TEnvironment = 'DEVELOPMENT' | 'PRODUCTION';
+
+export type TRedisConfigReturn =
+  | string
+  | {
+      host: string;
+      port: number;
+      connectTimeout: number;
+      db: number;
+      lazyConnect: boolean;
+      keepAlive: number;
+    }
+  | null;
