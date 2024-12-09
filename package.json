@@ -1,0 +1,61 @@
+{
+  "name": "backend-redis-ts-socket",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "npx tsc && tsc-alias",
+    "dev": "nodemon",
+    "start": "node dist/index.ts"
+  },
+  "keywords": [],
+  "author": "Jaffer Sunny",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "bull": "^4.12.2",
+    "cloudinary": "^1.41.0",
+    "concurrently": "^8.2.2",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "datauri": "^4.1.0",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "ioredis": "^5.4.1",
+    "jsonwebtoken": "^9.0.2",
+    "moment": "^2.30.1",
+    "mongoose": "^8.0.3",
+    "mongoose-aggregate-paginate-v2": "^1.0.6",
+    "multer": "1.4.5-lts.1",
+    "nodemailer": "^6.9.10",
+    "redis": "^4.7.0",
+    "stripe": "^14.12.0",
+    "uuid": "^9.0.1"
+  },
+  "ts-node": {
+    "experimentalSpecifierResolution": "node",
+    "esm": true
+  },
+  "devDependencies": {
+    "@types/bcrypt": "^5.0.2",
+    "@types/cookie-parser": "^1.4.7",
+    "@types/cors": "^2.8.17",
+    "@types/express": "^4.17.21",
+    "@types/ioredis": "^5.0.0",
+    "@types/jsonwebtoken": "^9.0.6",
+    "@types/multer": "^1.4.11",
+    "@types/node": "^22.10.1",
+    "@types/nodemailer": "^6.4.14",
+    "@types/redis": "^4.0.11",
+    "nodemon": "^3.0.2",
+    "ts-node": "^10.9.2",
+    "tsc-alias": "^1.8.10",
+    "tsconfig-paths": "^4.2.0",
+    "tsx": "^4.19.2",
+    "typescript": "^5.4.3"
+  },
+  "engines": {
+    "node": "20.16.0"
+  }
+}
