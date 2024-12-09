@@ -1,10 +1,10 @@
-import jwt from "jsonwebtoken";
-import { User } from "../models/user.model.ts";
-import { asyncHandler } from "../utils/asyncHandler.ts";
-import { ApiError } from "../utils/ApiError.ts";
-import { ApiResponse } from "../utils/ApiResponse.ts";
-import { Request, Response, NextFunction } from "express";
-import { JwtPayload } from "../types/index.ts";
+import jwt from 'jsonwebtoken';
+import { User } from '../models/user.model.ts';
+import { asyncHandler } from '../utils/asyncHandler.ts';
+import { ApiError } from '../utils/ApiError.ts';
+import { ApiResponse } from '../utils/ApiResponse.ts';
+import { Request, Response, NextFunction } from 'express';
+import { JwtPayload } from '../types/index.ts';
 
 // in production code
 // if we are not using any keys like for example
@@ -16,10 +16,10 @@ const authMiddleware = asyncHandler(
     try {
       const token =
         req.cookies?.accessToken ||
-        req.header("Authorization")?.replace("Bearer ", "");
+        req.header('Authorization')?.replace('Bearer ', '');
 
       if (!token) {
-        throw new ApiError(401, "Unauthorized request");
+        throw new ApiError(401, 'Unauthorized request');
       }
 
       const decoded = jwt.verify(
@@ -28,17 +28,17 @@ const authMiddleware = asyncHandler(
       ) as { _id: string };
 
       const user = await User.findById(decoded._id).select(
-        "-password -refreshToken"
+        '-password -refreshToken'
       );
 
       if (!user) {
-        throw new ApiError(404, "User not found");
+        throw new ApiError(404, 'User not found');
       }
 
       req.user = user;
       next();
     } catch (error: any) {
-      throw new ApiError(401, error?.message || "Please Authenticate!");
+      throw new ApiError(401, error?.message || 'Please Authenticate!');
     }
   }
 );
@@ -48,7 +48,7 @@ const roleCheck = (role: string) => {
     if (!req.user.roles.includes(role)) {
       return res
         .status(403)
-        .json(new ApiResponse(403, "Access denied, Incorrect role!"));
+        .json(new ApiResponse(403, 'Access denied, Incorrect role!'));
     }
     next();
   };
@@ -69,12 +69,12 @@ const verifyRefreshToken = async (
     ) as JwtPayload;
     const user = await User.findById(decoded._id);
     if (!user) {
-      return res.status(401).json({ message: "Invalid refresh token" });
+      return res.status(401).json({ message: 'Invalid refresh token' });
     }
     req.user = user;
     next();
   } catch (error) {
-    return res.status(401).json({ message: "Invalid refresh token" });
+    return res.status(401).json({ message: 'Invalid refresh token' });
   }
 };
 

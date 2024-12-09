@@ -1,37 +1,37 @@
-import mongoose, { Schema } from "mongoose";
-import bcrypt from "bcrypt";
-import { ApiError } from "../utils/ApiError.ts";
-import jwt from "jsonwebtoken";
-import { IUser } from "../types/userTypes/index.ts";
+import mongoose, { Schema } from 'mongoose';
+import bcrypt from 'bcrypt';
+import { ApiError } from '../utils/ApiError.ts';
+import jwt from 'jsonwebtoken';
+import { IUser } from '../types/userTypes/index.ts';
 
 const userSchema = new Schema<IUser>(
   {
     firstName: {
       type: String,
-      required: [true, "First Name is required!!"],
+      required: [true, 'First Name is required!!'],
       trim: true,
     },
     lastName: {
       type: String,
-      required: [true, "Last Name is required!!"],
+      required: [true, 'Last Name is required!!'],
       trim: true,
     },
     username: {
       type: String,
-      required: [true, "Username is required!!"],
+      required: [true, 'Username is required!!'],
       unique: true,
       trim: true,
     },
     email: {
       type: String,
-      required: [true, "Email is required!!"],
+      required: [true, 'Email is required!!'],
       unique: true,
       trim: true,
     },
     // hashed and salted password
     password: {
       type: String,
-      required: [true, "Password is required!!"],
+      required: [true, 'Password is required!!'],
     },
     address: {
       country: {
@@ -86,22 +86,22 @@ const userSchema = new Schema<IUser>(
       type: [
         {
           type: String,
-          enum: ["guest", "author"],
+          enum: ['guest', 'author'],
         },
       ],
-      default: ["guest"],
+      default: ['guest'],
     },
     phone: {
       type: String,
-      default: "",
+      default: '',
     },
     gender: {
       type: String,
-      default: "male",
+      default: 'male',
     },
     bio: {
       type: String,
-      default: "",
+      default: '',
     },
     isProfileComplete: {
       type: Boolean,
@@ -114,17 +114,17 @@ const userSchema = new Schema<IUser>(
   }
 );
 
-userSchema.pre<IUser>("save", async function (next) {
+userSchema.pre<IUser>('save', async function (next) {
   try {
     const saltRounds = Number(process.env.SALT_ROUNDS) || 10;
 
-    if (!this.isModified("password")) return next();
+    if (!this.isModified('password')) return next();
 
     this.password = await bcrypt.hash(this.password, saltRounds);
 
     next();
   } catch (error) {
-    console.log("Error in user pre save", error);
+    console.log('Error in user pre save', error);
     throw new ApiError(500, `User creation failed! ${error}`);
   }
 });
@@ -160,4 +160,4 @@ userSchema.methods.generateRefreshToken = function () {
   );
 };
 
-export const User = mongoose.model<IUser>("User", userSchema);
+export const User = mongoose.model<IUser>('User', userSchema);

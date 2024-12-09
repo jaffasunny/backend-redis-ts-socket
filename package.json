@@ -7,7 +7,9 @@
   "scripts": {
     "build": "npx tsc && tsc-alias",
     "dev": "nodemon",
-    "start": "node dist/index.ts"
+    "start": "node dist/index.ts",
+    "prettier": "npx prettier . --write",
+    "github": "./github.sh"
   },
   "keywords": [],
   "author": "Jaffer Sunny",
@@ -49,6 +51,7 @@
     "@types/nodemailer": "^6.4.14",
     "@types/redis": "^4.0.11",
     "nodemon": "^3.0.2",
+    "prettier": "^3.4.2",
     "ts-node": "^10.9.2",
     "tsc-alias": "^1.8.10",
     "tsconfig-paths": "^4.2.0",

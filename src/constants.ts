@@ -1,6 +1,6 @@
-export const DB_NAME: string = "social-media-platform";
+export const DB_NAME: string = 'social-media-platform';
 
-export const nameless: string = "xyz";
+export const nameless: string = 'xyz';
 
 export const NotificationPayload = (title: string, body: string) => {
   return {
@@ -12,5 +12,5 @@ export const NotificationPayload = (title: string, body: string) => {
 };
 
 export enum REDIS_KEYS {
-  USER_AUTHENTICATION = "user-authentication",
+  USER_AUTHENTICATION = 'user-authentication',
 }

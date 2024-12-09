@@ -1,7 +1,7 @@
-import "dotenv/config";
-import cloudinary from "cloudinary";
-import connectDB from "./db/index";
-import { app } from "./app";
+import 'dotenv/config';
+import cloudinary from 'cloudinary';
+import connectDB from './db/index';
+import { app } from './app';
 
 const PORT = process.env.PORT || 8000;
 
@@ -18,6 +18,6 @@ connectDB()
     });
   })
   .catch((err) => {
-    console.log("MONGO db connection failed !!!", err);
+    console.log('MONGO db connection failed !!!', err);
     throw err;
   });

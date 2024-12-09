@@ -1,25 +1,25 @@
-import { ApiError } from "../utils/ApiError.ts";
-import { ApiResponse } from "../utils/ApiResponse.ts";
-import { asyncHandler } from "../utils/asyncHandler.ts";
-import { Post } from "../models/post.model.ts";
-import { Request, Response } from "express";
-import { IComment } from "../types/commentTypes/index.ts";
-import getDataUri, { File } from "../utils/dataUri.ts";
-import cloudinary from "cloudinary";
-import DataURIParser from "datauri/parser";
-import { Notification } from "../models/notification.model.ts";
-import { ObjectId } from "mongoose";
+import { ApiError } from '../utils/ApiError.ts';
+import { ApiResponse } from '../utils/ApiResponse.ts';
+import { asyncHandler } from '../utils/asyncHandler.ts';
+import { Post } from '../models/post.model.ts';
+import { Request, Response } from 'express';
+import { IComment } from '../types/commentTypes/index.ts';
+import getDataUri, { File } from '../utils/dataUri.ts';
+import cloudinary from 'cloudinary';
+import DataURIParser from 'datauri/parser';
+import { Notification } from '../models/notification.model.ts';
+import { ObjectId } from 'mongoose';
 
 const getAllPosts = asyncHandler(async (req: Request, res: Response) => {
-  const posts = await Post.find().populate("authorId");
+  const posts = await Post.find().populate('authorId');
 
   if (!posts) {
-    throw new ApiError(404, "No posts available!");
+    throw new ApiError(404, 'No posts available!');
   }
 
   return res
     .status(200)
-    .json(new ApiResponse(200, posts, "Posts successfully fetched!"));
+    .json(new ApiResponse(200, posts, 'Posts successfully fetched!'));
 });
 
 const getSinglePost = asyncHandler(async (req: Request, res: Response) => {
@@ -27,22 +27,22 @@ const getSinglePost = asyncHandler(async (req: Request, res: Response) => {
 
   const post = await Post.findById(id)
     .populate({
-      path: "authorId",
-      select: "-password", // Exclude password field
+      path: 'authorId',
+      select: '-password', // Exclude password field
     })
     .populate({
-      path: "comments.authorId",
-      select: "-password", // Exclude password field
+      path: 'comments.authorId',
+      select: '-password', // Exclude password field
     })
-    .populate("likes");
+    .populate('likes');
 
   if (!post) {
-    throw new ApiError(404, "No such post available!");
+    throw new ApiError(404, 'No such post available!');
   }
 
   return res
     .status(200)
-    .json(new ApiResponse(200, post, "Posts successfully fetched!"));
+    .json(new ApiResponse(200, post, 'Posts successfully fetched!'));
 });
 
 const createSinglePost = asyncHandler(async (req: Request, res: Response) => {
@@ -54,18 +54,18 @@ const createSinglePost = asyncHandler(async (req: Request, res: Response) => {
   const { _id: authorId } = req.user;
 
   if (!title || !description) {
-    throw new ApiError(400, "Please enter all fields!");
+    throw new ApiError(400, 'Please enter all fields!');
   }
 
   // upload image to cloudinary
   if (!file) {
-    throw new ApiError(400, "Please upload an image!");
+    throw new ApiError(400, 'Please upload an image!');
   }
 
   let fileUri: DataURIParser = getDataUri(file);
 
   if (!fileUri) {
-    throw new ApiError(500, "Error converting file to data URI");
+    throw new ApiError(500, 'Error converting file to data URI');
   }
 
   const mycloud = await cloudinary.v2.uploader.upload(
@@ -85,12 +85,12 @@ const createSinglePost = asyncHandler(async (req: Request, res: Response) => {
   const createdPost = await Post.findById(post._id);
 
   if (!createdPost) {
-    throw new ApiError(500, "Something went wrong while creating post!");
+    throw new ApiError(500, 'Something went wrong while creating post!');
   }
 
   return res
     .status(201)
-    .json(new ApiResponse(200, createdPost, "Post created successfully!"));
+    .json(new ApiResponse(200, createdPost, 'Post created successfully!'));
 });
 
 const updatePost = asyncHandler(async (req: Request, res: Response) => {
@@ -106,13 +106,13 @@ const updatePost = asyncHandler(async (req: Request, res: Response) => {
 
   // upload image to cloudinary
   if (!file) {
-    throw new ApiError(400, "Please upload an image!");
+    throw new ApiError(400, 'Please upload an image!');
   }
 
   let fileUri: DataURIParser = getDataUri(file);
 
   if (!fileUri) {
-    throw new ApiError(500, "Error converting file to data URI");
+    throw new ApiError(500, 'Error converting file to data URI');
   }
 
   const mycloud = await cloudinary.v2.uploader.upload(
@@ -134,12 +134,12 @@ const updatePost = asyncHandler(async (req: Request, res: Response) => {
   );
 
   if (!updatedPost) {
-    throw new ApiError(500, "Something went wrong while creating post!");
+    throw new ApiError(500, 'Something went wrong while creating post!');
   }
 
   return res
     .status(201)
-    .json(new ApiResponse(200, updatedPost, "Post updated successfully!"));
+    .json(new ApiResponse(200, updatedPost, 'Post updated successfully!'));
 });
 
 const removePost = asyncHandler(async (req: Request, res: Response) => {
@@ -156,12 +156,12 @@ const removePost = asyncHandler(async (req: Request, res: Response) => {
   });
 
   if (!deletedPost) {
-    throw new ApiError(500, "Something went wrong while creating post!");
+    throw new ApiError(500, 'Something went wrong while creating post!');
   }
 
   return res
     .status(201)
-    .json(new ApiResponse(200, deletedPost, "Post deleted successfully!"));
+    .json(new ApiResponse(200, deletedPost, 'Post deleted successfully!'));
 });
 
 const likePost = asyncHandler(async (req: Request, res: Response) => {
@@ -170,8 +170,8 @@ const likePost = asyncHandler(async (req: Request, res: Response) => {
   const { _id: user, firstName, lastName } = req.user;
 
   const post = await Post.findById(postId).populate({
-    path: "authorId",
-    select: "-password", // Exclude password field
+    path: 'authorId',
+    select: '-password', // Exclude password field
   });
 
   const gettingNotifications = await Notification.find({
@@ -181,7 +181,7 @@ const likePost = asyncHandler(async (req: Request, res: Response) => {
   let newNotification = new Notification();
 
   if (!post) {
-    throw new ApiError(400, "Post not found!");
+    throw new ApiError(400, 'Post not found!');
   }
 
   const likedIndex = post.likes.indexOf(user);
@@ -199,7 +199,7 @@ const likePost = asyncHandler(async (req: Request, res: Response) => {
       }
 
       notificationToUpdate.notifications.push({
-        title: "Received new notification!",
+        title: 'Received new notification!',
         body: `${firstName} ${lastName} liked your post`,
       });
 
@@ -207,7 +207,7 @@ const likePost = asyncHandler(async (req: Request, res: Response) => {
     } else {
       newNotification.userId = post.authorId._id as ObjectId;
       newNotification.notifications.push({
-        title: "Received new notification!",
+        title: 'Received new notification!',
         body: `${firstName} ${lastName} liked your post`,
       });
       await newNotification.save();
@@ -222,8 +222,8 @@ const likePost = asyncHandler(async (req: Request, res: Response) => {
       new ApiResponse(
         200,
         likedIndex !== -1
-          ? "Post unliked successfully"
-          : "Post liked successfully"
+          ? 'Post unliked successfully'
+          : 'Post liked successfully'
       )
     );
 });
@@ -234,12 +234,12 @@ const commentPost = asyncHandler(async (req: Request, res: Response) => {
   const { _id: authorId, firstName, lastName } = req.user;
 
   const post = await Post.findById(postId).populate({
-    path: "authorId",
-    select: "-password", // Exclude password field
+    path: 'authorId',
+    select: '-password', // Exclude password field
   });
 
   if (!post) {
-    throw new ApiError(400, "Post not found!");
+    throw new ApiError(400, 'Post not found!');
   }
 
   const newComment = {
@@ -257,7 +257,7 @@ const commentPost = asyncHandler(async (req: Request, res: Response) => {
       new ApiResponse(
         200,
         { comment: newComment },
-        "Comment added successfully"
+        'Comment added successfully'
       )
     );
 });
