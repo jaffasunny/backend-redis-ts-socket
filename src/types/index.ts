@@ -10,3 +10,5 @@ export interface IResetPasswordToken extends Document {
   userId: mongoose.Schema.Types.ObjectId;
   token: string;
 }
+
+export type TEnvironment = 'DEVELOPMENT' | 'PRODUCTION';
