@@ -33,6 +33,10 @@ const userSchema = new Schema<IUser>(
       type: String,
       required: [true, 'Password is required!!'],
     },
+    isOnline: {
+      type: String,
+      default: '0',
+    },
     address: {
       country: {
         type: String,
@@ -108,6 +112,7 @@ const userSchema = new Schema<IUser>(
       default: false,
     },
     refreshTokens: [{ token: String }],
+    socketId: { type: String, required: true },
   },
   {
     timestamps: true,

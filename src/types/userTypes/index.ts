@@ -50,6 +50,8 @@ export interface IUser extends IUserDocument {
   _id?: mongoose.Schema.Types.ObjectId; // Optional for inferred _id type
   createdAt?: Date;
   updatedAt?: Date;
+  socketId: string;
+  isOnline?: string;
   _doc: any;
 
   // Instance methods
