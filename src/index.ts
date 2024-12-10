@@ -2,6 +2,8 @@ import 'dotenv/config';
 import cloudinary from 'cloudinary';
 import connectDB from './db';
 import { app } from './app';
+import { createServer } from 'http';
+import { setupSocket } from './config/socket';
 
 const PORT = process.env.PORT || 8000;
 
@@ -13,7 +15,12 @@ connectDB()
       api_secret: process.env.CLOUDINARY_API_SECRET as string,
     });
 
-    app.listen(PORT, () => {
+    const httpServer = createServer(app);
+
+    // Setup Socket
+    setupSocket(httpServer);
+
+    httpServer.listen(PORT, () => {
       console.log(`Server is running at port: ${PORT}`);
     });
   })
