@@ -3,15 +3,11 @@ import { IMessage } from './../types/messageTypes';
 
 const messageSchema = new Schema<IMessage>(
   {
-    roomId: {
+    chat: {
       type: String,
       required: true,
     },
     senderId: {
-      type: Schema.Types.ObjectId,
-      ref: 'User',
-    },
-    receiverId: {
       type: Schema.Types.ObjectId,
       ref: 'User',
     },

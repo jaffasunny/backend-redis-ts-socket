@@ -15,6 +15,7 @@ export const setupSocket = (httpServer: HttpServer) => {
     console.log(`User connected to socket.io: ${socket.id}`);
 
     socket.on('setup', (userData) => {
+      console.log(`User ${userData._id} Connected, socket.io: ${socket.id}`)
       socket.join(userData._id);
       socket.emit(`User ${userData._id} Connected, socket.io: ${socket.id}`);
     });

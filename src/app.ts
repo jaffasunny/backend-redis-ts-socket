@@ -28,6 +28,7 @@ app.use(cookieParser());
 import userRouter from './routes/user.route.ts';
 import postRouter from './routes/post.route.ts';
 import notificationRouter from './routes/notification.route.ts';
+import chatRouter from './routes/chat.route.ts';
 
 // routes declaration
 app.get('/', (req, res) => {
@@ -46,5 +47,8 @@ app.use('/api/v1/posts', postRouter);
 
 // notifications routes
 app.use('/api/v1/notifications', notificationRouter);
+
+// chats routes
+app.use('/api/v1/chats', chatRouter);
 
 export { app };

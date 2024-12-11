@@ -2,11 +2,15 @@ import mongoose from 'mongoose';
 
 export interface IMessage extends Document {
   senderId: mongoose.Schema.Types.ObjectId;
-  roomId: string;
-  receiverId: mongoose.Schema.Types.ObjectId;
-  username: string;
+  chat: mongoose.Schema.Types.ObjectId;
   text: string;
-  createdAt: Date;
+}
+
+export interface IChat extends Document {
+  admin: mongoose.Schema.Types.ObjectId;
+  participants: mongoose.Schema.Types.ObjectId[];
+  messages: mongoose.Schema.Types.ObjectId;
+  isGroupChat: boolean;
 }
 
 export interface IRoom extends Document {
