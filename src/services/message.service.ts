@@ -3,20 +3,20 @@ import { IMessage } from '../types/messageTypes';
 
 type TCreateMessageParams = {
   senderId: string;
-  roomId: string;
+  chatId: string;
   username: string;
   text: string;
 };
 
 export const createMessage = async ({
   senderId,
-  roomId,
+  chatId,
   username,
   text,
 }: TCreateMessageParams): Promise<IMessage> => {
   const message = new Message({
     senderId,
-    roomId,
+    chatId,
     username,
     text,
   });
@@ -24,8 +24,8 @@ export const createMessage = async ({
   return await message.save();
 };
 
-export const getMessageByRoomId = async (
-  roomId: string
+export const getMessageByChatId = async (
+  chatId: string
 ): Promise<IMessage[]> => {
-  return await Message.find({ roomId });
+  return await Message.find({ chat: chatId });
 };

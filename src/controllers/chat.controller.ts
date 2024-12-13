@@ -8,7 +8,7 @@ const getAllChats = asyncHandler(async (req: Request, res: Response) => {
   const { _id: userId } = req.user;
 
   const Chats = await Chat.find({
-    participants: userId,
+    users: userId,
   });
 
   return res
@@ -25,7 +25,7 @@ const createOrAccessChat = asyncHandler(async (req: Request, res: Response) => {
   }
 
   const findChat = await Chat.findOne({
-    participants: {
+    users: {
       $all: [_id, userId],
     },
   });
@@ -37,7 +37,7 @@ const createOrAccessChat = asyncHandler(async (req: Request, res: Response) => {
   }
 
   const createdChats = await Chat.create({
-    participants: [_id, userId],
+    users: [_id, userId],
   });
 
   return res
@@ -45,4 +45,33 @@ const createOrAccessChat = asyncHandler(async (req: Request, res: Response) => {
     .json(new ApiResponse(200, createdChats, 'Chat created successfully'));
 });
 
-export { getAllChats, createOrAccessChat };
+const addToGroupChat = asyncHandler(async (req: Request, res: Response) => {
+  const { _id } = req.user;
+  const { userId } = req.body;
+
+  if (!mongoose.Types.ObjectId.isValid(userId)) {
+    return res.status(400).json(new ApiResponse(400, null, 'Invalid userId'));
+  }
+
+  const findChat = await Chat.findOne({
+    users: {
+      $all: [_id, userId],
+    },
+  });
+
+  if (findChat) {
+    return res
+      .status(201)
+      .json(new ApiResponse(200, findChat, 'Chat accessed successfully!'));
+  }
+
+  const createdChats = await Chat.create({
+    users: [_id, userId],
+  });
+
+  return res
+    .status(201)
+    .json(new ApiResponse(200, createdChats, 'Chat created successfully'));
+});
+
+export { getAllChats, createOrAccessChat, addToGroupChat };

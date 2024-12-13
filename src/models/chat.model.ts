@@ -3,7 +3,7 @@ import { IChat } from '../types/messageTypes';
 
 const chatSchema = new Schema<IChat>(
   {
-    participants: [
+    users: [
       {
         type: Schema.Types.ObjectId,
         ref: 'User',
@@ -12,13 +12,7 @@ const chatSchema = new Schema<IChat>(
     admin: {
       type: Schema.Types.ObjectId,
       ref: 'User',
-    },
-    messages: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: 'Message',
-      },
-    ],
+    }, 
     isGroupChat: {
       type: Boolean,
       default: false,

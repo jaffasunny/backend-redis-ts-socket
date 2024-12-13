@@ -8,12 +8,6 @@ export interface IMessage extends Document {
 
 export interface IChat extends Document {
   admin: mongoose.Schema.Types.ObjectId;
-  participants: mongoose.Schema.Types.ObjectId[];
-  messages: mongoose.Schema.Types.ObjectId;
+  users: mongoose.Schema.Types.ObjectId[];
   isGroupChat: boolean;
-}
-
-export interface IRoom extends Document {
-  name: string;
-  participants: mongoose.Schema.Types.ObjectId[];
 }
