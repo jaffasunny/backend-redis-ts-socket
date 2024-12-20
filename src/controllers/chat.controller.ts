@@ -3,6 +3,7 @@ import { asyncHandler } from '../utils/asyncHandler';
 import { ApiResponse } from '../utils/ApiResponse';
 import { Chat } from '../models/chat.model';
 import mongoose from 'mongoose';
+import { getIO } from '../utils/utils';
 
 const getAllChats = asyncHandler(async (req: Request, res: Response) => {
   const { _id: userId } = req.user;
@@ -19,6 +20,8 @@ const getAllChats = asyncHandler(async (req: Request, res: Response) => {
 const createOrAccessChat = asyncHandler(async (req: Request, res: Response) => {
   const { _id } = req.user;
   const { userId } = req.body;
+
+  const io = getIO(req);
 
   if (!mongoose.Types.ObjectId.isValid(userId)) {
     return res.status(400).json(new ApiResponse(400, null, 'Invalid userId'));
@@ -38,6 +41,12 @@ const createOrAccessChat = asyncHandler(async (req: Request, res: Response) => {
 
   const createdChats = await Chat.create({
     users: [_id, userId],
+  });
+
+  io.to(userId).emit('createdChat', {
+    chatId: createdChats._id,
+    users: createdChats.users,
+    message: 'You have been added to the chat!',
   });
 
   return res
